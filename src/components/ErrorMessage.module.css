@@ -1,0 +1,15 @@
+.wrapper {
+  text-align: center;
+  padding: 2rem;
+  color: #c62828;
+}
+
+.button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #ef5350;
+  color: #fff;
+  font-weight: 600;
+}
