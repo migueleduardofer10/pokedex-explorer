@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Pokemon } from '../types/pokemon'
 import { typeColors } from '../utils/typeColors'
+import FavoriteButton from './FavoriteButton'
 import styles from './PokemonCard.module.css'
 
 interface Props {
@@ -10,7 +11,10 @@ interface Props {
 function PokemonCard({ pokemon }: Props) {
   return (
     <Link to={`/pokemon/${pokemon.id}`} className={styles.card}>
-      <span className={styles.id}>#{String(pokemon.id).padStart(3, '0')}</span>
+      <div className={styles.header}>
+        <FavoriteButton pokemon={pokemon} />
+        <span className={styles.id}>#{String(pokemon.id).padStart(3, '0')}</span>
+      </div>
       <img
         src={pokemon.image}
         alt={pokemon.name}

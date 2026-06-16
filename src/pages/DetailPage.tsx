@@ -5,6 +5,7 @@ import type { Pokemon } from '../types/pokemon'
 import { typeColors } from '../utils/typeColors'
 import Loader from '../components/Loader'
 import ErrorMessage from '../components/ErrorMessage'
+import FavoriteButton from '../components/FavoriteButton'
 import styles from './DetailPage.module.css'
 
 // Stats que pide el reto, con etiqueta legible
@@ -67,7 +68,10 @@ function DetailPage() {
         />
 
         <span className={styles.id}>#{String(pokemon.id).padStart(3, '0')}</span>
-        <h2 className={styles.name}>{pokemon.name}</h2>
+        <div className={styles.nameRow}>
+          <h2 className={styles.name}>{pokemon.name}</h2>
+          <FavoriteButton pokemon={pokemon} />
+        </div>
 
         <div className={styles.types}>
           {pokemon.types.map((type) => (

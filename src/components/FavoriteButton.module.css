@@ -1,0 +1,12 @@
+.button {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0.2rem;
+  transition: transform 0.15s ease;
+}
+
+.button:hover {
+  transform: scale(1.2);
+}
