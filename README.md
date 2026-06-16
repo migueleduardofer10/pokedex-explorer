@@ -4,6 +4,8 @@ Aplicación web que consume la [PokéAPI](https://pokeapi.co/) para explorar Pok
 listado paginado, búsqueda, vista de detalle con estadísticas y favoritos
 persistidos en el navegador.
 
+🔗 **Demo en vivo:** https://pokedex-explorer-three.vercel.app/
+
 ## Funcionalidades
 
 - **Listado** de Pokémon en tarjetas con imagen, nombre y tipos.
@@ -13,6 +15,7 @@ persistidos en el navegador.
 - **Favoritos**: marcar/quitar desde la tarjeta o el detalle, con vista propia.
 - **Persistencia** de favoritos en `localStorage`.
 - **Filtro por tipo** de Pokémon usando el endpoint `/type`.
+- **Animaciones** suaves al cambiar de vista y al cargar tarjetas.
 - **Estados de carga** (spinner) y **error** (con botón de reintento) en cada llamada.
 - **Diseño responsivo** (mobile y desktop).
 
@@ -81,5 +84,5 @@ src/
 
 ## Mejoras futuras
 
-- Animaciones/transiciones entre vistas.
-- Deploy en Vercel o Netlify.
+- Cachear la lista de tipos para no repetirla al paginar dentro de un filtro.
+- Tests unitarios de la capa de API y los componentes.
