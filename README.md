@@ -12,6 +12,7 @@ persistidos en el navegador.
 - **Vista de detalle** con imagen, tipos y estadísticas base (HP, Ataque, Defensa, Velocidad).
 - **Favoritos**: marcar/quitar desde la tarjeta o el detalle, con vista propia.
 - **Persistencia** de favoritos en `localStorage`.
+- **Filtro por tipo** de Pokémon usando el endpoint `/type`.
 - **Estados de carga** (spinner) y **error** (con botón de reintento) en cada llamada.
 - **Diseño responsivo** (mobile y desktop).
 
@@ -80,6 +81,5 @@ src/
 
 ## Mejoras futuras
 
-- Filtro por tipo usando el endpoint `/type` (la capa de API ya lo soporta).
 - Animaciones/transiciones entre vistas.
 - Deploy en Vercel o Netlify.

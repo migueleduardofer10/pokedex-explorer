@@ -2,6 +2,16 @@
   margin-bottom: 1rem;
 }
 
+.controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.controls > * {
+  flex: 1 1 220px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));

@@ -1,0 +1,16 @@
+.select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font-size: 1rem;
+  background: #fff;
+  outline: none;
+  text-transform: capitalize;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: #ef5350;
+}

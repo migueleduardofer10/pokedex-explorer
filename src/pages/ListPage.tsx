@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
-import { getPokemonPage } from '../apis/pokeApi'
-import type { Pokemon } from '../types/pokemon'
+import {
+  getPokemonDetail,
+  getPokemonPage,
+  getPokemonsByType,
+  getTypes,
+} from '../apis/pokeApi'
+import type { NamedResource, Pokemon } from '../types/pokemon'
 import PokemonCard from '../components/PokemonCard'
 import Loader from '../components/Loader'
 import ErrorMessage from '../components/ErrorMessage'
 import SearchBar from '../components/SearchBar'
+import TypeFilter from '../components/TypeFilter'
 import Pagination from '../components/Pagination'
 import styles from './ListPage.module.css'
 
@@ -15,32 +21,59 @@ function ListPage() {
   const [count, setCount] = useState(0)
   const [offset, setOffset] = useState(0)
   const [search, setSearch] = useState('')
+  const [types, setTypes] = useState<NamedResource[]>([])
+  const [selectedType, setSelectedType] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [reloadKey, setReloadKey] = useState(0)
 
+  // Lista de tipos para el selector (una sola vez)
+  useEffect(() => {
+    getTypes()
+      .then((data) =>
+        setTypes(
+          data.filter((t) => !['unknown', 'stellar', 'shadow'].includes(t.name)),
+        ),
+      )
+      .catch(() => setTypes([]))
+  }, [])
+
+  // Página actual, con o sin filtro de tipo
   useEffect(() => {
     let active = true
     setLoading(true)
     setError('')
 
-    getPokemonPage(offset, LIMIT)
-      .then((data) => {
-        if (!active) return
-        setPokemons(data.pokemons)
-        setCount(data.count)
-      })
-      .catch((err) => {
-        if (active) setError(err.message ?? 'Algo salió mal')
-      })
-      .finally(() => {
+    async function load() {
+      try {
+        if (selectedType) {
+          // Filtrado: lista del tipo + detalles solo de la página actual
+          const names = await getPokemonsByType(selectedType)
+          const slice = names.slice(offset, offset + LIMIT)
+          const detailed = await Promise.all(
+            slice.map((n) => getPokemonDetail(n.name)),
+          )
+          if (!active) return
+          setPokemons(detailed)
+          setCount(names.length)
+        } else {
+          const data = await getPokemonPage(offset, LIMIT)
+          if (!active) return
+          setPokemons(data.pokemons)
+          setCount(data.count)
+        }
+      } catch (err) {
+        if (active) setError((err as Error).message ?? 'Algo salió mal')
+      } finally {
         if (active) setLoading(false)
-      })
+      }
+    }
 
+    load()
     return () => {
       active = false
     }
-  }, [offset, reloadKey])
+  }, [selectedType, offset, reloadKey])
 
   const page = offset / LIMIT + 1
   const totalPages = Math.ceil(count / LIMIT)
@@ -50,10 +83,24 @@ function ListPage() {
     p.name.toLowerCase().includes(search.toLowerCase()),
   )
 
+  // Al cambiar el tipo, vuelve a la primera página
+  const handleTypeChange = (type: string) => {
+    setSelectedType(type)
+    setOffset(0)
+  }
+
   return (
     <div>
       <h2 className={styles.title}>Pokédex</h2>
-      <SearchBar value={search} onChange={setSearch} />
+
+      <div className={styles.controls}>
+        <SearchBar value={search} onChange={setSearch} />
+        <TypeFilter
+          types={types}
+          value={selectedType}
+          onChange={handleTypeChange}
+        />
+      </div>
 
       {loading && <Loader />}
       {error && (
