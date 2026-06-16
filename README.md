@@ -1,73 +1,85 @@
-# React + TypeScript + Vite
+# Pokédex Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web que consume la [PokéAPI](https://pokeapi.co/) para explorar Pokémon:
+listado paginado, búsqueda, vista de detalle con estadísticas y favoritos
+persistidos en el navegador.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Listado** de Pokémon en tarjetas con imagen, nombre y tipos.
+- **Paginación** (Anterior / Siguiente).
+- **Buscador** por nombre sobre los resultados cargados.
+- **Vista de detalle** con imagen, tipos y estadísticas base (HP, Ataque, Defensa, Velocidad).
+- **Favoritos**: marcar/quitar desde la tarjeta o el detalle, con vista propia.
+- **Persistencia** de favoritos en `localStorage`.
+- **Estados de carga** (spinner) y **error** (con botón de reintento) en cada llamada.
+- **Diseño responsivo** (mobile y desktop).
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/) como bundler y servidor de desarrollo
+- [React Router v6](https://reactrouter.com/) para la navegación
+- **CSS Modules** para los estilos
+- Estado compartido con **React Context** (sin librerías externas)
 
-## Expanding the ESLint configuration
+## Requisitos previos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Node.js](https://nodejs.org/) 18 o superior
+- npm (incluido con Node.js)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Cómo correr el proyecto
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# 1. Instalar dependencias
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 2. Levantar el servidor de desarrollo
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Luego abre la URL que muestra la terminal (por defecto `http://localhost:5173`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts disponibles
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Script | Descripción |
+|---|---|
+| `npm run dev` | Servidor de desarrollo con recarga en caliente |
+| `npm run build` | Build de producción en `dist/` |
+| `npm run preview` | Sirve localmente el build de producción |
+| `npm run lint` | Ejecuta ESLint |
+
+## Estructura de carpetas
+
 ```
+src/
+├── apis/         # Llamadas a la PokéAPI (toda la lógica de red)
+├── components/   # Componentes reutilizables (tarjeta, loader, error, etc.)
+├── context/      # FavoritesContext (estado global de favoritos)
+├── pages/        # Vistas por ruta (listado, detalle, favoritos)
+├── types/        # Tipos de TypeScript
+├── utils/        # Utilidades (colores por tipo)
+├── App.tsx       # Definición de rutas y layout
+└── main.tsx      # Punto de entrada (providers globales)
+```
+
+## Decisiones tomadas
+
+- **Vite en lugar de Create React App**: arranque y recarga más rápidos, y CRA
+  está descontinuado.
+- **TypeScript** (bonus del reto): tipa las respuestas de la API y previene errores.
+- **CSS Modules**: estilos aislados por componente, sin conflictos de nombres y sin
+  dependencias externas.
+- **Capa de API separada** (`apis/`): los componentes no contienen `fetch` directo;
+  toda la red está centralizada y la respuesta cruda se transforma a un modelo limpio.
+- **React Context para favoritos** en vez de Redux/Zustand: el estado se comparte en
+  vivo entre tarjetas, detalle y la vista de favoritos, y persiste en `localStorage`.
+  Internamente usa `useState` + `useEffect`, suficiente para el alcance del proyecto.
+- **Doble petición en el listado**: el endpoint de listado no trae imagen ni tipos,
+  así que por cada página se piden los detalles en paralelo con `Promise.all`.
+
+## Mejoras futuras
+
+- Filtro por tipo usando el endpoint `/type` (la capa de API ya lo soporta).
+- Animaciones/transiciones entre vistas.
+- Deploy en Vercel o Netlify.
