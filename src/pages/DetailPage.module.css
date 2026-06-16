@@ -1,0 +1,90 @@
+.back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #ef5350;
+}
+
+.card {
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.id {
+  font-size: 0.9rem;
+  color: #999;
+  font-weight: 600;
+}
+
+.name {
+  margin: 0.25rem 0 1rem;
+  text-transform: capitalize;
+}
+
+.types {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.type {
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.stats {
+  text-align: left;
+}
+
+.stats h3 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: 80px 36px 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.statValue {
+  font-weight: 700;
+  text-align: right;
+}
+
+.barTrack {
+  background: #eee;
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: #ef5350;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
