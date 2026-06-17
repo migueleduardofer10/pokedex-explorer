@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import ListPage from './pages/ListPage'
-import DetailPage from './pages/DetailPage'
-import FavoritesPage from './pages/FavoritesPage'
+import Navbar from './components/Navbar/Navbar'
+import ListPage from './pages/ListPage/ListPage'
+import DetailPage from './pages/DetailPage/DetailPage'
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage'
 import './App.css'
 
 function App() {

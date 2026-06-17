@@ -1,6 +1,6 @@
 import type { MouseEvent } from 'react'
-import type { Pokemon } from '../types/pokemon'
-import { useFavorites } from '../context/FavoritesContext'
+import type { Pokemon } from '../../types/pokemon'
+import { useFavorites } from '../../context/FavoritesContext'
 import styles from './FavoriteButton.module.css'
 
 interface Props {

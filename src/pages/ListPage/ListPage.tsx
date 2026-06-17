@@ -4,14 +4,14 @@ import {
   getPokemonPage,
   getPokemonsByType,
   getTypes,
-} from '../apis/pokeApi'
-import type { NamedResource, Pokemon } from '../types/pokemon'
-import PokemonCard from '../components/PokemonCard'
-import Loader from '../components/Loader'
-import ErrorMessage from '../components/ErrorMessage'
-import SearchBar from '../components/SearchBar'
-import TypeFilter from '../components/TypeFilter'
-import Pagination from '../components/Pagination'
+} from '../../apis/pokeApi'
+import type { NamedResource, Pokemon } from '../../types/pokemon'
+import PokemonCard from '../../components/PokemonCard/PokemonCard'
+import Loader from '../../components/Loader/Loader'
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
+import SearchBar from '../../components/SearchBar/SearchBar'
+import TypeFilter from '../../components/TypeFilter/TypeFilter'
+import Pagination from '../../components/Pagination/Pagination'
 import styles from './ListPage.module.css'
 
 const LIMIT = 20
