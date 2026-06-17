@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getPokemonDetail } from '../../apis/pokeApi'
-import type { Pokemon } from '../../types/pokemon'
-import { typeColors } from '../../utils/typeColors'
-import Loader from '../../components/Loader/Loader'
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
-import FavoriteButton from '../../components/FavoriteButton/FavoriteButton'
+import { getPokemonDetail } from '@/apis/pokeApi'
+import type { Pokemon } from '@/types/pokemon'
+import { typeColors } from '@/utils/typeColors'
+import Loader from '@/components/Loader/Loader'
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import FavoriteButton from '@/components/FavoriteButton/FavoriteButton'
 import styles from './DetailPage.module.css'
 
 // Stats que pide el reto, con etiqueta legible

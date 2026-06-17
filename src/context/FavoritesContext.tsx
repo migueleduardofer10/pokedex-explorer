@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import type { Pokemon } from '../types/pokemon'
+import type { Pokemon } from '@/types/pokemon'
 
 const STORAGE_KEY = 'favorites'
 

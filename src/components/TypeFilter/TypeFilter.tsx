@@ -1,4 +1,4 @@
-import type { NamedResource } from '../../types/pokemon'
+import type { NamedResource } from '@/types/pokemon'
 import styles from './TypeFilter.module.css'
 
 interface Props {

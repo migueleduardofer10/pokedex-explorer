@@ -1,5 +1,5 @@
-import { useFavorites } from '../../context/FavoritesContext'
-import PokemonCard from '../../components/PokemonCard/PokemonCard'
+import { useFavorites } from '@/context/FavoritesContext'
+import PokemonCard from '@/components/PokemonCard/PokemonCard'
 import styles from './FavoritesPage.module.css'
 
 function FavoritesPage() {

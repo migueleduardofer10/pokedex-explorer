@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import type { Pokemon } from '../../types/pokemon'
-import { typeColors } from '../../utils/typeColors'
-import FavoriteButton from '../FavoriteButton/FavoriteButton'
+import type { Pokemon } from '@/types/pokemon'
+import { typeColors } from '@/utils/typeColors'
+import FavoriteButton from '@/components/FavoriteButton/FavoriteButton'
 import styles from './PokemonCard.module.css'
 
 interface Props {
