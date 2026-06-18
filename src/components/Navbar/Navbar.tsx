@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom'
 import { useTheme } from '@/hooks/useTheme'
+import { useFavorites } from '@/context/FavoritesContext'
 import styles from './Navbar.module.css'
 
 function Navbar() {
   const { theme, toggleTheme } = useTheme()
+  const { favorites } = useFavorites()
 
   // NavLink marca como activo el enlace de la ruta actual
   const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -37,14 +39,19 @@ function Navbar() {
             <path d="M3 11.5 12 4l9 7.5" />
             <path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9" />
           </svg>
-          <span>Home</span>
+          <span className={styles.linkText}>Home</span>
         </NavLink>
 
         <NavLink to="/favorites" className={linkClass}>
-          <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-          </svg>
-          <span>Favorites</span>
+          <span className={styles.iconWrap}>
+            <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+            </svg>
+            {favorites.length > 0 && (
+              <span className={styles.badge}>{favorites.length}</span>
+            )}
+          </span>
+          <span className={styles.linkText}>Favorites</span>
         </NavLink>
 
         <button

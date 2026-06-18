@@ -65,6 +65,30 @@
   color: var(--red);
 }
 
+.iconWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.badge {
+  position: absolute;
+  top: -7px;
+  right: -9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid var(--surface);
+}
+
 .icon {
   width: 18px;
   height: 18px;
@@ -92,9 +116,9 @@
   transform: scale(1.08);
 }
 
-/* En móvil dejamos solo iconos en los enlaces para ahorrar espacio */
+/* En móvil dejamos solo iconos (y el badge) en los enlaces para ahorrar espacio */
 @media (max-width: 480px) {
-  .link span {
+  .linkText {
     display: none;
   }
 }
