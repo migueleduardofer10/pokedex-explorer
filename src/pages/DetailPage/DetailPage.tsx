@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getPokemonDetail } from '@/apis/pokeApi'
-import type { Pokemon } from '@/types/pokemon'
 import { typeColors } from '@/utils/typeColors'
+import { usePokemonDetail } from '@/hooks/usePokemonDetail'
 import Loader from '@/components/Loader/Loader'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import FavoriteButton from '@/components/FavoriteButton/FavoriteButton'
@@ -20,38 +18,10 @@ const MAX_STAT = 255
 
 function DetailPage() {
   const { id } = useParams<{ id: string }>()
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-  const [reloadKey, setReloadKey] = useState(0)
-
-  useEffect(() => {
-    if (!id) return
-    let active = true
-    setLoading(true)
-    setError('')
-
-    getPokemonDetail(id)
-      .then((data) => {
-        if (active) setPokemon(data)
-      })
-      .catch((err) => {
-        if (active) setError(err.message ?? 'Algo salió mal')
-      })
-      .finally(() => {
-        if (active) setLoading(false)
-      })
-
-    return () => {
-      active = false
-    }
-  }, [id, reloadKey])
+  const { pokemon, loading, error, reload } = usePokemonDetail(id)
 
   if (loading) return <Loader />
-  if (error)
-    return (
-      <ErrorMessage message={error} onRetry={() => setReloadKey((k) => k + 1)} />
-    )
+  if (error) return <ErrorMessage message={error} onRetry={reload} />
   if (!pokemon) return null
 
   return (
