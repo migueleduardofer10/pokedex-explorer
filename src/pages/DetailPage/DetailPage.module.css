@@ -2,16 +2,16 @@
   display: inline-block;
   margin-bottom: 1rem;
   font-weight: 600;
-  color: #ef5350;
+  color: var(--red);
 }
 
 .card {
   max-width: 480px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--surface);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px var(--shadow-strong);
   text-align: center;
 }
 
@@ -24,7 +24,7 @@
 
 .id {
   font-size: 0.9rem;
-  color: #999;
+  color: var(--text-muted);
   font-weight: 600;
 }
 
@@ -75,7 +75,7 @@
 
 .statLabel {
   font-size: 0.85rem;
-  color: #555;
+  color: var(--text-muted);
 }
 
 .statValue {
@@ -84,7 +84,7 @@
 }
 
 .barTrack {
-  background: #eee;
+  background: var(--border);
   border-radius: 999px;
   height: 10px;
   overflow: hidden;
@@ -92,7 +92,7 @@
 
 .barFill {
   height: 100%;
-  background: #ef5350;
+  background: var(--red);
   border-radius: 999px;
   transition: width 0.3s ease;
 }

@@ -91,15 +91,20 @@ function ListPage() {
 
   return (
     <div>
-      <h2 className={styles.title}>Pokédex</h2>
-
-      <div className={styles.controls}>
-        <SearchBar value={search} onChange={setSearch} />
-        <TypeFilter
-          types={types}
-          value={selectedType}
-          onChange={handleTypeChange}
-        />
+      <div className={styles.header}>
+        <h2 className={styles.title}>Pokédex</h2>
+        <div className={styles.controls}>
+          <div className={styles.search}>
+            <SearchBar value={search} onChange={setSearch} />
+          </div>
+          <div className={styles.filter}>
+            <TypeFilter
+              types={types}
+              value={selectedType}
+              onChange={handleTypeChange}
+            />
+          </div>
+        </div>
       </div>
 
       {loading && <Loader />}
@@ -125,8 +130,7 @@ function ListPage() {
           <Pagination
             page={page}
             totalPages={totalPages}
-            onPrev={() => setOffset((o) => Math.max(0, o - LIMIT))}
-            onNext={() => setOffset((o) => o + LIMIT)}
+            onPageChange={(p) => setOffset((p - 1) * LIMIT)}
           />
         </>
       )}

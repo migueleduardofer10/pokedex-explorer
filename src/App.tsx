@@ -17,7 +17,7 @@ function App() {
           <Routes location={location}>
             <Route path="/" element={<ListPage />} />
             <Route path="/pokemon/:id" element={<DetailPage />} />
-            <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="*" element={<p>Página no encontrada (404)</p>} />
           </Routes>
         </div>
