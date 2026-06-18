@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   getPokemonDetail,
   getPokemonPage,
@@ -20,6 +20,9 @@ export function usePokemonList() {
   const [error, setError] = useState('')
   const [reloadKey, setReloadKey] = useState(0)
 
+  // Caché de nombres por tipo: evita repedirlos al paginar dentro de un filtro
+  const typeCache = useRef(new Map<string, NamedResource[]>())
+
   // Lista de tipos para el selector (una sola vez)
   useEffect(() => {
     getTypes()
@@ -38,7 +41,12 @@ export function usePokemonList() {
     async function load() {
       try {
         if (selectedType) {
-          const names = await getPokemonsByType(selectedType)
+          // Usa el caché si ya pedimos los nombres de este tipo
+          let names = typeCache.current.get(selectedType)
+          if (!names) {
+            names = await getPokemonsByType(selectedType)
+            typeCache.current.set(selectedType, names)
+          }
           const slice = names.slice(offset, offset + limit)
           const detailed = await Promise.all(
             slice.map((n) => getPokemonDetail(n.name)),

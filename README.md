@@ -119,6 +119,15 @@ El endpoint de listado (`/pokemon`) no trae imagen ni tipos, solo nombre y URL. 
 eso, por cada página se piden los **detalles en paralelo** con `Promise.all`, evitando
 peticiones secuenciales lentas.
 
+### Caché de tipos en memoria
+
+Al filtrar por un tipo, el endpoint `/type/{nombre}` devuelve **toda** la lista de
+Pokémon de ese tipo (puede ser larga). Para no repedirla cada vez que se cambia de
+página dentro del mismo filtro, se guarda en un **caché en memoria** (`useRef` con un
+`Map` de `tipo → nombres`). Se usa `useRef` y no `useState` porque el caché es memoria
+interna que no debe provocar re-renders. Es un caché temporal: vive mientras la vista
+del listado esté montada.
+
 ### Estado global con React Context (sin Redux/Zustand)
 
 Los favoritos se comparten en vivo entre tarjetas, detalle y la vista de favoritos
