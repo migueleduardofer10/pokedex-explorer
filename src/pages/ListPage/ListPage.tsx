@@ -64,27 +64,30 @@ function ListPage() {
             </div>
           )}
 
-          <div className={styles.bottomBar}>
-            <Pagination
-              page={page}
-              totalPages={totalPages}
-              onPageChange={goToPage}
-            />
-            <label className={styles.pageSize}>
-              Mostrar
-              <select
-                className={styles.select}
-                value={limit}
-                onChange={(e) => changeLimit(Number(e.target.value))}
-              >
-                {PAGE_SIZE_OPTIONS.map((size) => (
-                  <option key={size} value={size}>
-                    {size}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+          {/* El paginador se oculta al buscar: la búsqueda filtra solo lo cargado */}
+          {!search && (
+            <div className={styles.bottomBar}>
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={goToPage}
+              />
+              <label className={styles.pageSize}>
+                Mostrar
+                <select
+                  className={styles.select}
+                  value={limit}
+                  onChange={(e) => changeLimit(Number(e.target.value))}
+                >
+                  {PAGE_SIZE_OPTIONS.map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          )}
         </>
       )}
     </div>
