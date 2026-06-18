@@ -6,13 +6,14 @@ import {
   getTypes,
 } from '@/apis/pokeApi'
 import type { NamedResource, Pokemon } from '@/types/pokemon'
+import { DEFAULT_PAGE_SIZE, EXCLUDED_TYPES } from '@/constants'
 
 // Encapsula la carga del listado: paginación, filtro por tipo, loading y error
 export function usePokemonList() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const [count, setCount] = useState(0)
   const [offset, setOffset] = useState(0)
-  const [limit, setLimit] = useState(20)
+  const [limit, setLimit] = useState(DEFAULT_PAGE_SIZE)
   const [types, setTypes] = useState<NamedResource[]>([])
   const [selectedType, setSelectedType] = useState('')
   const [loading, setLoading] = useState(true)
@@ -23,9 +24,7 @@ export function usePokemonList() {
   useEffect(() => {
     getTypes()
       .then((data) =>
-        setTypes(
-          data.filter((t) => !['unknown', 'stellar', 'shadow'].includes(t.name)),
-        ),
+        setTypes(data.filter((t) => !EXCLUDED_TYPES.includes(t.name))),
       )
       .catch(() => setTypes([]))
   }, [])

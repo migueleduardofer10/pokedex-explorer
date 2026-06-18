@@ -4,8 +4,7 @@ import type {
   PokemonDetailResponse,
   PokemonListResponse,
 } from '@/types/pokemon'
-
-const BASE_URL = 'https://pokeapi.co/api/v2'
+import { BASE_URL } from '@/constants'
 
 // fetch con manejo de error centralizado
 async function request<T>(url: string): Promise<T> {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { usePokemonList } from '@/hooks/usePokemonList'
+import { PAGE_SIZE_OPTIONS } from '@/constants'
 import PokemonCard from '@/components/PokemonCard/PokemonCard'
 import Loader from '@/components/Loader/Loader'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
@@ -76,9 +77,11 @@ function ListPage() {
                 value={limit}
                 onChange={(e) => changeLimit(Number(e.target.value))}
               >
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
+                {PAGE_SIZE_OPTIONS.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
               </select>
             </label>
           </div>

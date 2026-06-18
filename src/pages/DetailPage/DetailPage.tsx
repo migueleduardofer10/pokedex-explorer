@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { typeColors } from '@/utils/typeColors'
+import { MAX_STAT } from '@/constants'
 import { usePokemonDetail } from '@/hooks/usePokemonDetail'
 import Loader from '@/components/Loader/Loader'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
@@ -13,8 +14,6 @@ const STATS = [
   { key: 'defense', label: 'Defensa' },
   { key: 'speed', label: 'Velocidad' },
 ] as const
-
-const MAX_STAT = 255
 
 function DetailPage() {
   const { id } = useParams<{ id: string }>()
