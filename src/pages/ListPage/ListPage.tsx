@@ -14,12 +14,11 @@ import TypeFilter from '@/components/TypeFilter/TypeFilter'
 import Pagination from '@/components/Pagination/Pagination'
 import styles from './ListPage.module.css'
 
-const LIMIT = 20
-
 function ListPage() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const [count, setCount] = useState(0)
   const [offset, setOffset] = useState(0)
+  const [limit, setLimit] = useState(20)
   const [search, setSearch] = useState('')
   const [types, setTypes] = useState<NamedResource[]>([])
   const [selectedType, setSelectedType] = useState('')
@@ -49,7 +48,7 @@ function ListPage() {
         if (selectedType) {
           // Filtrado: lista del tipo + detalles solo de la página actual
           const names = await getPokemonsByType(selectedType)
-          const slice = names.slice(offset, offset + LIMIT)
+          const slice = names.slice(offset, offset + limit)
           const detailed = await Promise.all(
             slice.map((n) => getPokemonDetail(n.name)),
           )
@@ -57,7 +56,7 @@ function ListPage() {
           setPokemons(detailed)
           setCount(names.length)
         } else {
-          const data = await getPokemonPage(offset, LIMIT)
+          const data = await getPokemonPage(offset, limit)
           if (!active) return
           setPokemons(data.pokemons)
           setCount(data.count)
@@ -73,10 +72,10 @@ function ListPage() {
     return () => {
       active = false
     }
-  }, [selectedType, offset, reloadKey])
+  }, [selectedType, offset, limit, reloadKey])
 
-  const page = offset / LIMIT + 1
-  const totalPages = Math.ceil(count / LIMIT)
+  const page = offset / limit + 1
+  const totalPages = Math.ceil(count / limit)
 
   // Buscador: filtra sobre los resultados ya cargados
   const filtered = pokemons.filter((p) =>
@@ -127,11 +126,28 @@ function ListPage() {
             </div>
           )}
 
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={(p) => setOffset((p - 1) * LIMIT)}
-          />
+          <div className={styles.bottomBar}>
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              onPageChange={(p) => setOffset((p - 1) * limit)}
+            />
+            <label className={styles.pageSize}>
+              Mostrar
+              <select
+                className={styles.select}
+                value={limit}
+                onChange={(e) => {
+                  setLimit(Number(e.target.value))
+                  setOffset(0)
+                }}
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+              </select>
+            </label>
+          </div>
         </>
       )}
     </div>

@@ -42,7 +42,7 @@ function Navbar() {
 
         <NavLink to="/favorites" className={linkClass}>
           <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 21s-6.7-4.3-9.4-7C.9 12.3.9 9.3 2.6 7.6a4.5 4.5 0 0 1 6.4 0L12 10.6l3-3a4.5 4.5 0 0 1 6.4 6.4C18.7 16.7 12 21 12 21z" />
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
           </svg>
           <span>Favorites</span>
         </NavLink>

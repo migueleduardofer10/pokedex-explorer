@@ -6,22 +6,18 @@ interface Props {
   onPageChange: (page: number) => void
 }
 
-// Genera los números a mostrar con elipsis (ej. 1 … 4 5 6 … 68)
-function getPages(current: number, total: number): (number | 'dots')[] {
-  if (total <= 7) {
-    return Array.from({ length: total }, (_, i) => i + 1)
-  }
+// Ventana de 5 páginas consecutivas + primera y última
+function getPages(current: number, total: number): number[] {
+  const windowSize = 5
+  let start = Math.max(1, current - 2)
+  const end = Math.min(total, start + windowSize - 1)
+  start = Math.max(1, end - windowSize + 1)
 
-  const pages: (number | 'dots')[] = [1]
-  const start = Math.max(2, current - 1)
-  const end = Math.min(total - 1, current + 1)
+  const pages = new Set<number>([1])
+  for (let i = start; i <= end; i++) pages.add(i)
+  pages.add(total)
 
-  if (start > 2) pages.push('dots')
-  for (let i = start; i <= end; i++) pages.push(i)
-  if (end < total - 1) pages.push('dots')
-
-  pages.push(total)
-  return pages
+  return [...pages].sort((a, b) => a - b)
 }
 
 function Pagination({ page, totalPages, onPageChange }: Props) {
@@ -42,12 +38,8 @@ function Pagination({ page, totalPages, onPageChange }: Props) {
         </svg>
       </button>
 
-      {pages.map((p, i) =>
-        p === 'dots' ? (
-          <span key={`dots-${i}`} className={styles.dots}>
-            …
-          </span>
-        ) : (
+      <div className={styles.pages}>
+        {pages.map((p) => (
           <button
             key={p}
             className={`${styles.page} ${p === page ? styles.active : ''}`}
@@ -56,8 +48,8 @@ function Pagination({ page, totalPages, onPageChange }: Props) {
           >
             {p}
           </button>
-        ),
-      )}
+        ))}
+      </div>
 
       <button
         className={styles.nav}
